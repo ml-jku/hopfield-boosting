@@ -1,0 +1,5 @@
+_target_: hopfield_boosting.encoder.mlp.MLP
+no_layers: 2
+in_dim: 512
+hidden_dim: 256
+out_dim: 128

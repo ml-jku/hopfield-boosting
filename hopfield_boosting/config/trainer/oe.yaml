@@ -1,0 +1,11 @@
+_target_: hopfield_boosting.trainer.MSPTrainer
+model: ${model}
+classifier:
+  _target_: torch.nn.Linear
+  _args_:
+    - 512
+    - ${num_classes}
+criterion: ${loss}
+optim: ${optim}
+energy_fn: ~
+ood_weight: 0.5

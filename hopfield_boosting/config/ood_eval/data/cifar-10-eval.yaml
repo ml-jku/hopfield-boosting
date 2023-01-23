@@ -1,0 +1,65 @@
+imagenet:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: hopfield_boosting.data.datasets.ImageNet
+    root: ${paths.imagenet}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.ToTensor
+  loader:
+    _target_: torch.utils.data.DataLoader
+    _partial_: true
+    batch_size: ${val_batch_size}
+    num_workers: 2
+
+mnist:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.MNIST
+    root: ${paths.mnist}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.Grayscale
+          num_output_channels: 3
+        - _target_: torchvision.transforms.ToTensor
+  loader: ${ood_eval.validation.out_datasets.imagenet.loader}
+
+fashion_mnist:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.FashionMNIST
+    root: ${paths.fashion_mnist}
+    transform: ${ood_eval.validation.out_datasets.mnist.dataset.transform}
+  loader: ${ood_eval.validation.out_datasets.imagenet.loader}
+
+uniform_noise:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: hopfield_boosting.data.datasets.noise.UniformNoise
+    len: 10000
+    img_size: [3, 32, 32]
+  loader: ${ood_eval.validation.out_datasets.imagenet.loader}
+
+gaussian_noise:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: hopfield_boosting.data.datasets.noise.GaussianNoise
+    len: 10000
+    img_size: [3, 32, 32]
+    mean: [0.4914, 0.4822, 0.4465]
+    std: [0.2023, 0.1994, 0.2010]
+  loader: ${ood_eval.validation.out_datasets.imagenet.loader}

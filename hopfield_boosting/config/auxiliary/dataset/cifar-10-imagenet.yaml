@@ -1,0 +1,9 @@
+_target_: hopfield_boosting.data.datasets.imagenet.ImageNet
+root: ${paths.imagenet}
+transform:
+  _target_: torchvision.transforms.Compose
+  transforms:
+    - _target_: torchvision.transforms.RandomCrop
+      _args_:
+        - 32
+    - ${transform}

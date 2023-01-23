@@ -1,0 +1,11 @@
+defaults:
+  - dataset: cifar-10-imagenet
+
+_target_: hopfield_boosting.data.DataSetup
+wrapper: ~
+
+loader:
+  _target_: torch.utils.data.DataLoader
+  _partial_: true
+  shuffle: true
+  batch_size: ${aux_batch_size}

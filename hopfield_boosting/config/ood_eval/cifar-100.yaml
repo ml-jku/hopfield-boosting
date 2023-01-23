@@ -1,0 +1,36 @@
+defaults:
+  - /transform@validation.in_dataset.dataset.transform: to-tensor
+  - data@validation.out_datasets: cifar-10-eval
+  - data@test.out_datasets: cifar-10-test
+
+validation:
+  _target_: hopfield_boosting.ood.OODEvaluator
+  in_dataset:
+    _target_: hopfield_boosting.data.DataSetup
+    dataset:
+      _target_: torchvision.datasets.CIFAR100
+      root: ${paths.cifar-100}
+      train: false
+    loader:
+      _target_: torch.utils.data.DataLoader
+      _partial_: true
+      batch_size: ${val_batch_size}
+  metrics:
+    fpr95:
+      _target_: hopfield_boosting.ood.FPR95OODMetric
+    auroc:
+      _target_: hopfield_boosting.ood.AUROCOODMetric
+    auprs:
+      _target_: hopfield_boosting.ood.AUPRSOODMetric
+  logger: 
+    _target_: hopfield_boosting.logger.WandbLogger
+  device: ${device}
+
+test:
+  _target_: hopfield_boosting.ood.OODEvaluator
+  in_dataset: ${ood_eval.validation.in_dataset}
+  metrics: ${ood_eval.validation.metrics}
+  logger: 
+    _target_: hopfield_boosting.logger.FileLogger
+    path: test_logs/
+  device: ${device}

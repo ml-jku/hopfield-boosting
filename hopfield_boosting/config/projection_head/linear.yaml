@@ -1,0 +1,4 @@
+_target_: torch.nn.Linear
+_args_:
+  - 512
+  - 512

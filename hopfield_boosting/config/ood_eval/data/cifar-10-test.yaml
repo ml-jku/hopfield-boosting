@@ -1,0 +1,106 @@
+svhn:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: hopfield_boosting.data.datasets.SVHN
+    root: ${paths.svhn}
+    split: test
+    download: false
+    transform:
+      _target_: torchvision.transforms.ToTensor
+  loader:
+    _target_: torch.utils.data.DataLoader
+    _partial_: true
+    batch_size: ${val_batch_size}
+    num_workers: 2
+
+dtd:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.ImageFolder
+    root: ${paths.textures}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.ToTensor  
+  loader: ${ood_eval.test.out_datasets.svhn.loader}
+
+places365:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torch.utils.data.Subset
+    dataset:
+      _target_: torchvision.datasets.ImageFolder
+      root: ${paths.places}
+      transform:
+        _target_: torchvision.transforms.Compose
+        transforms:
+          - _target_: torchvision.transforms.Resize
+            _args_:
+              - 32
+          - _target_: torchvision.transforms.CenterCrop
+            _args_:
+              - 32
+          - _target_: torchvision.transforms.ToTensor
+    indices:
+      _target_: numpy.random.choice
+      a: 328500
+      size: 10000
+      replace: false
+  loader: ${ood_eval.test.out_datasets.svhn.loader}
+
+lsun:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.ImageFolder
+    root: ${paths.lsun-crop}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.ToTensor
+  loader: ${ood_eval.test.out_datasets.svhn.loader}
+
+lsun_resize:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.ImageFolder
+    root: ${paths.lsun-resize}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.ToTensor
+  loader: ${ood_eval.test.out_datasets.svhn.loader}
+
+isun:
+  _target_: hopfield_boosting.data.DataSetup
+  dataset:
+    _target_: torchvision.datasets.ImageFolder
+    root: ${paths.isun}
+    transform:
+      _target_: torchvision.transforms.Compose
+      transforms:
+        - _target_: torchvision.transforms.Resize
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.CenterCrop
+          _args_:
+            - 32
+        - _target_: torchvision.transforms.ToTensor
+  loader: ${ood_eval.test.out_datasets.svhn.loader}

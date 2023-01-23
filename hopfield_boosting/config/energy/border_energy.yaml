@@ -1,0 +1,6 @@
+_target_: hopfield_boosting.energy.BorderEnergy
+_partial_: true
+beta_a: ${beta}
+beta_b: ${beta}
+beta_border: ${beta}
+mask_diagonale: false

@@ -1,0 +1,33 @@
+defaults:
+  - _self_
+  - /dataset@aug.train.dataset: ${dataset}
+  - /dataset@aug.val.dataset: ${dataset}-val
+  - /dataset@no_aug.train.dataset: ${dataset}
+  - /dataset@no_aug.val.dataset: ${dataset}-val
+  - /transform@no_aug.train.dataset.transform: to-tensor
+  - /transform@no_aug.val.dataset.transform: to-tensor
+
+aug:
+  train:
+    _target_: hopfield_boosting.data.DataSetup
+    dataset:
+      transform: ${transform}
+    wrapper: ~
+    loader:
+      _target_: torch.utils.data.DataLoader
+      _partial_: true
+      shuffle: true
+      drop_last: true
+      batch_size: ${train_batch_size}
+  val:
+    _target_: hopfield_boosting.data.DataSetup
+    dataset:
+      transform: ${transform}
+    wrapper: ~
+    batch_sampler: ~
+    loader:
+      _target_: torch.utils.data.DataLoader
+      _partial_: true
+      batch_size: ${val_batch_size}
+
+no_aug: ${data.aug}

@@ -1,0 +1,20 @@
+name: hopfield-boosting
+channels:
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.8
+  - pytorch=2.2
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - pip
+  - pip:
+    - wandb
+    - hydra-core
+    - scipy
+    - seaborn
+    - matplotlib
+    - numpy
+    - scikit-learn
+    - tqdm

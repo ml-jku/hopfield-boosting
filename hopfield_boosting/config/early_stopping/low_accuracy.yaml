@@ -1,0 +1,3 @@
+_target_: hopfield_boosting.early_stopping.LowAccuracyEarlyStopping
+epoch: ???
+accuracy: ???

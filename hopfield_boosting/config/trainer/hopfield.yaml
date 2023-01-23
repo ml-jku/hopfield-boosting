@@ -1,0 +1,14 @@
+_target_: hopfield_boosting.trainer.HopfieldTrainer
+model: ${model}
+classifier:
+  _target_: torch.nn.Linear
+  _args_:
+    - 512
+    - ${num_classes}
+criterion: ${loss}
+optim: ${optim}
+energy_fn: ${energy}
+ood_weight: ${ood_weight}
+beta: ${beta}
+projection_head: ${projection_head}
+use_ood: true

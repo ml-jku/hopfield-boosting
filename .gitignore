@@ -1,0 +1,16 @@
+__pycache__
+.vscode
+.pytest_cache
+*.egg-info
+wandb
+saved_models
+datasets/ood_datasets
+runs
+outputs
+multirun
+*.pth
+build/
+notebooks/.ipynb_checkpoints
+test_logs/
+downloaded_datasets/
+hopfield_boosting/config/paths/iml.yaml

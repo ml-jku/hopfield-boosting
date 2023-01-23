@@ -1,0 +1,59 @@
+defaults:
+  - paths: ???
+  - loss: ce
+  - optim: sgd
+  - data: hopfield_base
+  - transform: cifar-10-mild
+  - ood_eval: ${dataset}
+  - auxiliary: ${dataset}
+  - dataset: cifar-10
+  - scheduler: cosine_annealing
+  - early_stopping: low_accuracy
+  - energy: border_energy
+  - model: resnet_18_32x32
+  - trainer: hopfield
+  - projection_head: multilayer
+  - _self_
+
+no_epochs: 100
+device: cuda
+train_batch_size: 128
+aux_batch_size: 2500
+val_batch_size: 1024
+image_size: 32
+force_deterministic: false
+num_classes: 10
+use_seed: false
+
+early_stopping:
+  accuracy: 0.3
+  epoch: 5
+
+beta: 4
+
+optim:
+  lr: 0.1
+  weight_decay: 0.0005
+  momentum: 0.9
+
+project_root: ${paths.project_root}
+
+hydra:
+  job:
+    chdir: false
+
+project_name: hopfield_boosting
+
+ood_weight: 0.5
+
+init_eval: false
+
+sampler:
+  _target_: hopfield_boosting.data.softmax_sampler.SoftmaxBorderSampler
+  num_tested_samples: 500_000
+  out_batch_size: 128
+  replacement: true
+  device: ${device}
+
+do_sampling: true
+recursive_sampling: false

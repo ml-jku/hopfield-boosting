@@ -1,0 +1,5 @@
+_target_: torchvision.transforms.Compose
+transforms:
+  - _target_: hopfield_boosting.transforms.autoaugment.CIFAR10Policy
+  - _target_: torchvision.transforms.RandomHorizontalFlip
+  - _target_: torchvision.transforms.ToTensor

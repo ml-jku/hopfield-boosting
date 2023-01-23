@@ -1,0 +1,9 @@
+_target_: hopfield_boosting.encoder.CNNOODWrapper
+cnn:
+  _target_: hopfield_boosting.encoder.resnet_18_32x32.ResNet18_32x32
+preprocess:
+  _target_: torchvision.transforms.Compose
+  transforms:
+    - _target_: torchvision.transforms.Normalize
+      mean: [0.4914, 0.4822, 0.4465]
+      std: [0.2023, 0.1994, 0.2010]
