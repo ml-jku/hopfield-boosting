@@ -14,3 +14,5 @@ notebooks/.ipynb_checkpoints
 test_logs/
 downloaded_datasets/
 hopfield_boosting/config/paths/iml.yaml
+run_sweep.py
+.env

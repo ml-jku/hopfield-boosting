@@ -1,0 +1,23 @@
+project_root: ${oc.env:PROJECT_ROOT,/path/to/project_root}
+
+cifar-10: ${oc.env:CIFAR10_ROOT,/path/to/dataset}
+
+cifar-100: ${oc.env:CIFAR100_ROOT,/path/to/dataset}
+
+imagenet: ${oc.env:IMAGENET_ROOT,/path/to/dataset}
+
+svhn: ${oc.env:SVHN_ROOT,/path/to/dataset}
+
+lsun-crop: ${oc.env:LSUN_CROP_ROOT,/path/to/dataset}
+
+lsun-resize: ${oc.env:LSUN_RESIZE_ROOT,/path/to/dataset}
+
+isun: ${oc.env:ISUN_ROOT,/path/to/dataset}
+
+places: ${oc.env:PLACES_ROOT,/path/to/dataset}
+
+textures: ${oc.env:TEXTURES_ROOT,/path/to/dataset}
+
+mnist: ${oc.env:MNIST_ROOT,/path/to/dataset}
+
+fashion_mnist: ${oc.env:FASHION_MNIST_ROOT,/path/to/dataset}

@@ -3,6 +3,7 @@ import random
 from pathlib import Path
 from contextlib import contextmanager
 
+import wandb
 import hydra
 import numpy as np
 import torch
@@ -12,9 +13,9 @@ from tqdm import tqdm
 from hydra.utils import instantiate
 from omegaconf import DictConfig, OmegaConf
 from torch.optim.lr_scheduler import ReduceLROnPlateau
+from dotenv import load_dotenv
 
 import hopfield_boosting
-import wandb
 from hopfield_boosting.util import infer_loader
 
 
@@ -130,14 +131,16 @@ def main(config: DictConfig):
         torch_deterministic()
 
     project_name = config.project_name
+    load_dotenv()  # does not override variables from the environment
 
     wandb.init(project=project_name, config={'hydra': OmegaConf.to_container(
-        config, resolve=True, throw_on_missing=True)})
+        config, resolve=True, throw_on_missing=True)}, anonymous='allow')
     wandb.define_metric('epoch')
 
     print(OmegaConf.to_yaml(config))
 
-    run_dir = Path(config.project_root) / 'runs' / project_name / wandb.run.id
+    paths = instantiate(config.paths)
+    run_dir = Path(paths.project_root) / 'runs' / project_name / wandb.run.id
     os.makedirs(run_dir, exist_ok=True)
     OmegaConf.save(config, f'{run_dir}/cfg.yaml', resolve=True)
 
@@ -157,7 +160,6 @@ def main(config: DictConfig):
 
     sampler = instantiate(config.sampler, num_batches=len(data.aug.train.loader), beta=beta)
     ood_evaluators = instantiate(config.ood_eval)
-
 
     if config.get('scheduler'):
         if 'T_max' in config.scheduler.keys():

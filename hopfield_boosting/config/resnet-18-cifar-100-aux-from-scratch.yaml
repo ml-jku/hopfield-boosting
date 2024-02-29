@@ -2,5 +2,5 @@ defaults:
   - resnet-18-cifar-10-aux-from-scratch
   - override dataset: cifar-100
 
-project_name: hopfield_boosting-cifar100
+project_name: hopfield_boosting-cifar-100
 num_classes: 100

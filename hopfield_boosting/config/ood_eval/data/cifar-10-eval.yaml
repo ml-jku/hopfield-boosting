@@ -24,6 +24,7 @@ mnist:
   dataset:
     _target_: torchvision.datasets.MNIST
     root: ${paths.mnist}
+    download: true
     transform:
       _target_: torchvision.transforms.Compose
       transforms:
@@ -36,14 +37,6 @@ mnist:
         - _target_: torchvision.transforms.Grayscale
           num_output_channels: 3
         - _target_: torchvision.transforms.ToTensor
-  loader: ${ood_eval.validation.out_datasets.imagenet.loader}
-
-fashion_mnist:
-  _target_: hopfield_boosting.data.DataSetup
-  dataset:
-    _target_: torchvision.datasets.FashionMNIST
-    root: ${paths.fashion_mnist}
-    transform: ${ood_eval.validation.out_datasets.mnist.dataset.transform}
   loader: ${ood_eval.validation.out_datasets.imagenet.loader}
 
 uniform_noise:

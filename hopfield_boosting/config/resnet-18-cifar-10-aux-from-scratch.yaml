@@ -1,11 +1,11 @@
 defaults:
-  - paths: ???
   - loss: ce
   - optim: sgd
   - data: hopfield_base
-  - transform: cifar-10-mild
+  - transform: cifar-10
   - ood_eval: ${dataset}
   - auxiliary: ${dataset}
+  - preprocess: ${dataset}
   - dataset: cifar-10
   - scheduler: cosine_annealing
   - early_stopping: low_accuracy
@@ -13,6 +13,7 @@ defaults:
   - model: resnet_18_32x32
   - trainer: hopfield
   - projection_head: multilayer
+  - paths: dotenv
   - _self_
 
 no_epochs: 100
@@ -36,8 +37,6 @@ optim:
   weight_decay: 0.0005
   momentum: 0.9
 
-project_root: ${paths.project_root}
-
 hydra:
   job:
     chdir: false
@@ -46,11 +45,9 @@ project_name: hopfield_boosting
 
 ood_weight: 0.5
 
-init_eval: false
-
 sampler:
   _target_: hopfield_boosting.data.softmax_sampler.SoftmaxBorderSampler
-  num_tested_samples: 500_000
+  num_tested_samples: 400_000
   out_batch_size: 128
   replacement: true
   device: ${device}

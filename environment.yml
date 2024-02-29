@@ -18,3 +18,4 @@ dependencies:
     - numpy
     - scikit-learn
     - tqdm
+    - python-dotenv

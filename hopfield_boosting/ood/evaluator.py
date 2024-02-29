@@ -33,7 +33,7 @@ class OODEvaluator:
         if self.logger:
             self.logger.log(results, epoch=epoch)
 
-        return metric_result
+        return results
     
     def compute_scores_loader(self, loader: DataLoader, score_fn, num_samples=10000) -> Dict[float, dict]:
         total_samples = 0

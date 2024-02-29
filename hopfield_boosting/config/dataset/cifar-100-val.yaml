@@ -1,3 +1,4 @@
 _target_: torchvision.datasets.CIFAR100
-root: /publicdata
+root: ${paths.cifar-100}
 train: false
+download: true
