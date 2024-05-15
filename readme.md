@@ -1,9 +1,9 @@
 # Energy-based Hopfield Boosting for Out-of-Distribution Detection
 
-[![arXiv](https://img.shields.io/badge/arXiv-2306.14884-b31b1b.svg)](TODO)
+[![arXiv](https://img.shields.io/badge/arXiv-2405.08766-b31b1b.svg)](https://arxiv.org/abs/2405.08766)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This is the official implementation of "Energy-based Hopfield Boosting for Out-of-Distribution Detection". The paper is available [here TODO](TODO).
+This is the official implementation of "Energy-based Hopfield Boosting for Out-of-Distribution Detection". The paper is available [here](https://arxiv.org/abs/2405.08766).
 
 https://github.com/claushofmann/hopfield-classifier/assets/23155858/83021bdf-755b-4e79-8b52-4dc999cbc56f
 
@@ -90,5 +90,10 @@ To run, first set the paths to the data sets and the model in `hopfield_boosting
 If you found this repository helpful, consider giving it a ⭐ and cite our paper:
 
 ```
-@article TODO
+@article{hofmann2024energybased,
+      title={Energy-based Hopfield Boosting for Out-of-Distribution Detection}, 
+      author={Claus Hofmann and Simon Schmid and Bernhard Lehner and Daniel Klotz and Sepp Hochreiter},
+      year={2024},
+      journal={arXiv preprint arXiv:2405.08766}
+}
 ```
